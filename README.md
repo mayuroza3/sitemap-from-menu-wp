@@ -31,5 +31,16 @@ A lightweight WordPress plugin that generates a front-end sitemap based on your 
 2. Create or choose a menu with pages/categories you want in the sitemap.
 3. Add this shortcode where you want to show the sitemap:
 
-```php
+```
 [sitemap_from_menu]
+```
+
+
+---
+
+## 🙌 Author
+
+Created by [Mayur Oza](https://mayuroza.com)  
+Follow me on [GitHub](https://github.com/mayuroza3)
+
+
