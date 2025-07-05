@@ -1,23 +1,35 @@
-# Sitemap From Menu
+# Sitemap from WordPress Menu 🗺️
 
-**Converts a selected WordPress menu into a simple HTML sitemap.**  
-You can also optionally add extra pages (by ID) to the sitemap.
+A lightweight WordPress plugin that generates a front-end sitemap based on your site's selected **menu structure**, instead of relying on categories or post hierarchies. Ideal for site owners who manually curate content through menus and want to display a structured sitemap that reflects that.
 
----
-
-## 🧩 Features
-
-- Select any WordPress navigation menu to auto-generate a sitemap.
-- Append extra pages by manually specifying page IDs.
-- Output sitemap anywhere using a simple `[csfm]` shortcode.
-- Minimal admin settings interface.
-- Easy to customize and extend.
+![Screenshot](assets/screenshot-1.png)
 
 ---
 
-## 🖥️ Installation
+## 🚀 Features
 
-1. Clone/download this repository to your WordPress plugin directory:
+- ✅ Uses existing WordPress menus
+- ✅ Automatically displays sitemap hierarchy
+- ✅ Works with nested menus (multi-level)
+- ✅ No dependency on SEO plugins like Yoast or Rank Math
+- ✅ Simple and clean HTML output
 
-```bash
-wp-content/plugins/sitemap-from-menu/
+---
+
+## 📦 Installation
+
+1. Download the plugin `.zip` or clone the repository.
+2. Copy the plugin folder to your `/wp-content/plugins/` directory.
+3. Activate the plugin from **WP Admin > Plugins**.
+4. Add the shortcode `[sitemap_from_menu]` to any post, page, or widget.
+
+---
+
+## 🧠 Usage
+
+1. Go to **Appearance > Menus** in your WP dashboard.
+2. Create or choose a menu with pages/categories you want in the sitemap.
+3. Add this shortcode where you want to show the sitemap:
+
+```php
+[sitemap_from_menu]
