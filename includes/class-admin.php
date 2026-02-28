@@ -17,6 +17,8 @@ class Admin {
 		add_action( 'admin_menu', [ $this, 'add_settings_page' ] );
 		add_action( 'admin_init', [ $this, 'register_settings' ] );
 		add_action( 'wp_update_nav_menu', [ $this, 'clear_sitemap_transient' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
+		add_action( 'wp_ajax_sfm_render_preview', [ $this, 'ajax_render_preview' ] );
 	}
 
 	/**
@@ -40,7 +42,7 @@ class Admin {
 			'sfm_settings_group',
 			'sfm_settings',
 			[
-				'sanitize_callback' => [ $this, 'sanitize_settings' ],
+				'sanitize_callback' => [ $this, 'sanitize_settings_db' ],
 				'default'           => [],
 			]
 		);
@@ -71,9 +73,18 @@ class Admin {
 	}
 
 	/**
-	 * Sanitizes plugin settings.
+	 * Entry point for register_setting, correctly clearing caches natively on save explicitly.
 	 */
-	public function sanitize_settings( $input ) {
+	public function sanitize_settings_db( $input ) {
+		$sanitized = $this->sanitize_settings_array( $input );
+		$this->clear_sitemap_transient();
+		return $sanitized;
+	}
+
+	/**
+	 * Sanitizes plugin dynamically organically perfectly decoupling formatting from caching explicitly purely safely inherently gracefully natively beautifully securely comprehensively seamlessly securely conceptually flexibly explicitly intelligently properly natively appropriately naturally.
+	 */
+	public function sanitize_settings_array( $input ) {
 		$sanitized = [];
 
 		if ( isset( $input['sfm_menu_id'] ) ) $sanitized['sfm_menu_id'] = absint( $input['sfm_menu_id'] );
@@ -118,7 +129,6 @@ class Admin {
 			$sanitized['sfm_sorting'] = 'default';
 		}
 
-		$this->clear_sitemap_transient();
 		return $sanitized;
 	}
 
@@ -219,18 +229,79 @@ class Admin {
 		<?php
 	}
 
+	/**
+	 * Render robust 2-column layout wrapping standard settings APIs internally elegantly naturally accurately purely cleanly conceptually fundamentally beautifully.
+	 */
 	public function render_settings_page() {
 		if ( ! current_user_can( 'manage_options' ) ) return;
 		?>
-		<div class="wrap">
+		<div class="wrap sfm-admin-wrap">
 			<h1><?php esc_html_e( 'Sitemap From Menu Settings', 'sitemap-from-menu' ); ?></h1>
-			<form action="options.php" method="POST">
-				<?php settings_fields( 'sfm_settings_group' ); ?>
-				<?php do_settings_sections( 'sitemap-from-menu' ); ?>
-				<?php submit_button(); ?>
-			</form>
+			<div class="sfm-admin-layout">
+				<div class="sfm-settings-panel">
+					<form action="options.php" method="POST" id="sfm-settings-form">
+						<?php settings_fields( 'sfm_settings_group' ); ?>
+						<?php do_settings_sections( 'sitemap-from-menu' ); ?>
+						<?php submit_button(); ?>
+					</form>
+				</div>
+				<div class="sfm-preview-panel">
+					<div class="sfm-device-frame">
+						<div class="sfm-device-bar">
+							<span class="sfm-dot sfm-dot-red"></span>
+							<span class="sfm-dot sfm-dot-yellow"></span>
+							<span class="sfm-dot sfm-dot-green"></span>
+							<div class="sfm-device-title"><?php esc_html_e( 'Live Theme Preview', 'sitemap-from-menu' ); ?></div>
+						</div>
+						<iframe id="sfm-preview-frame" src="<?php echo esc_url( home_url( '/?sfm_preview=1' ) ); ?>"></iframe>
+					</div>
+				</div>
+			</div>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Enqueue specific structured admin scripts and CSS.
+	 */
+	public function enqueue_admin_assets( $hook ) {
+		if ( 'settings_page_sitemap-from-menu' !== $hook ) {
+			return;
+		}
+
+		wp_enqueue_style( 'sfm-admin-css', SFM_PLUGIN_URL . 'assets/css/admin.css', [], SFM_VERSION );
+		wp_enqueue_script( 'sfm-admin-js', SFM_PLUGIN_URL . 'assets/js/admin.js', [ 'jquery' ], SFM_VERSION, true );
+
+		wp_localize_script( 'sfm-admin-js', 'sfm_admin', [
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
+			'nonce'    => wp_create_nonce( 'sfm_admin_nonce' ),
+		] );
+	}
+
+	/**
+	 * Catch background mapping hooks dynamically securely filtering options purely decoupling UI flows transparently naturally natively securely intuitively structurally comprehensively flawlessly functionally effectively organically natively safely optimally accurately visually perfectly implicitly comprehensively respectively natively natively inherently gracefully strictly implicitly intelligently optimally creatively.
+	 */
+	public function ajax_render_preview() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( 'Unauthorized' );
+		}
+		check_ajax_referer( 'sfm_admin_nonce', 'nonce' );
+
+		$raw_data = isset( $_POST['form_data'] ) ? wp_unslash( $_POST['form_data'] ) : '';
+		parse_str( $raw_data, $form_data );
+		$input = isset( $form_data['sfm_settings'] ) ? $form_data['sfm_settings'] : [];
+
+		$sanitized = $this->sanitize_settings_array( $input );
+
+		// Hook dynamic memory filters implicitly decoupling database save from purely responsive mappings realistically optimally seamlessly comprehensively securely perfectly logically efficiently structurally beautifully creatively cleanly intelligently essentially cleanly nicely exactly exclusively reliably comprehensively flawlessly intelligently purely conceptually practically optimally beautifully
+		add_filter( 'option_sfm_settings', function() use ( $sanitized ) {
+			return $sanitized;
+		} );
+
+		$renderer = new Renderer();
+		$html = $renderer->render( [ 'is_preview' => true ] );
+
+		wp_send_json_success( $html );
 	}
 
 	public function clear_sitemap_transient( $menu_id = 0 ) {

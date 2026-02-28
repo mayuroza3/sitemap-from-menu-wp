@@ -1,7 +1,10 @@
-document.addEventListener('DOMContentLoaded', function () {
+function sfm_init_collapsible() {
     var toggleButtons = document.querySelectorAll('.sfm-toggle-btn');
 
     toggleButtons.forEach(function (btn) {
+        if (btn.dataset.sfmBound === "true") return;
+        btn.dataset.sfmBound = "true";
+
         btn.addEventListener('click', function (e) {
             e.preventDefault();
             var li = this.parentElement;
@@ -19,4 +22,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
-});
+}
+
+document.addEventListener('DOMContentLoaded', sfm_init_collapsible);
