@@ -45,130 +45,87 @@ class Admin {
 			]
 		);
 
-		add_settings_section(
-			'sfm_general_section',
-			esc_html__( 'General Settings', 'sitemap-from-menu' ),
-			[ $this, 'render_general_section' ],
-			'sitemap-from-menu'
-		);
+		add_settings_section( 'sfm_general_section', esc_html__( 'General Settings', 'sitemap-from-menu' ), [ $this, 'render_general_section' ], 'sitemap-from-menu' );
+		add_settings_section( 'sfm_features_section', esc_html__( 'Features & Layout', 'sitemap-from-menu' ), null, 'sitemap-from-menu' );
+		add_settings_section( 'sfm_exclusions_section', esc_html__( 'Exclusion Rules', 'sitemap-from-menu' ), null, 'sitemap-from-menu' );
 
-		add_settings_field(
-			'sfm_menu_id',
-			esc_html__( 'Select Menu', 'sitemap-from-menu' ),
-			[ $this, 'render_menu_dropdown' ],
-			'sitemap-from-menu',
-			'sfm_general_section'
-		);
+		// General
+		add_settings_field( 'sfm_menu_id', esc_html__( 'Select Menu', 'sitemap-from-menu' ), [ $this, 'render_menu_dropdown' ], 'sitemap-from-menu', 'sfm_general_section' );
+		add_settings_field( 'sfm_enable_shortcode', esc_html__( 'Enable Shortcode', 'sitemap-from-menu' ), [ $this, 'render_checkbox_field' ], 'sitemap-from-menu', 'sfm_general_section', [ 'key' => 'sfm_enable_shortcode', 'label' => esc_html__( 'Enable the [sitemap_from_menu] shortcode', 'sitemap-from-menu' ), 'default' => 1 ] );
+		add_settings_field( 'sfm_include_nested', esc_html__( 'Include Nested Items', 'sitemap-from-menu' ), [ $this, 'render_checkbox_field' ], 'sitemap-from-menu', 'sfm_general_section', [ 'key' => 'sfm_include_nested', 'label' => esc_html__( 'Include multi-level children items', 'sitemap-from-menu' ), 'default' => 1 ] );
+		add_settings_field( 'sfm_include_desc', esc_html__( 'Include Descriptions', 'sitemap-from-menu' ), [ $this, 'render_checkbox_field' ], 'sitemap-from-menu', 'sfm_general_section', [ 'key' => 'sfm_include_desc', 'label' => esc_html__( 'Show menu item descriptions under links', 'sitemap-from-menu' ), 'default' => 0 ] );
+		add_settings_field( 'sfm_append_pages', esc_html__( 'Append Extra Pages', 'sitemap-from-menu' ), [ $this, 'render_text_field' ], 'sitemap-from-menu', 'sfm_general_section', [ 'key' => 'sfm_append_pages', 'description' => esc_html__( 'Comma-separated post/page IDs to append at the end of the sitemap.', 'sitemap-from-menu' ) ] );
+		add_settings_field( 'sfm_container_class', esc_html__( 'Wrapper Container Class', 'sitemap-from-menu' ), [ $this, 'render_text_field' ], 'sitemap-from-menu', 'sfm_general_section', [ 'key' => 'sfm_container_class', 'default' => 'sfm-sitemap' ] );
 
-		add_settings_field(
-			'sfm_include_nested',
-			esc_html__( 'Include Nested Items', 'sitemap-from-menu' ),
-			[ $this, 'render_checkbox_field' ],
-			'sitemap-from-menu',
-			'sfm_general_section',
-			[
-				'key'   => 'sfm_include_nested',
-				'label' => esc_html__( 'Include multi-level children items', 'sitemap-from-menu' ),
-				'default' => 1,
-			]
-		);
+		// Features
+		add_settings_field( 'sfm_columns', esc_html__( 'Columns Layout', 'sitemap-from-menu' ), [ $this, 'render_columns_dropdown' ], 'sitemap-from-menu', 'sfm_features_section' );
+		add_settings_field( 'sfm_sorting', esc_html__( 'Sorting Method', 'sitemap-from-menu' ), [ $this, 'render_sorting_dropdown' ], 'sitemap-from-menu', 'sfm_features_section' );
+		add_settings_field( 'sfm_enable_a11y', esc_html__( 'Accessibility Improvements', 'sitemap-from-menu' ), [ $this, 'render_checkbox_field' ], 'sitemap-from-menu', 'sfm_features_section', [ 'key' => 'sfm_enable_a11y', 'label' => esc_html__( 'Wrap output in semantic <nav> tag with aria-labels.', 'sitemap-from-menu' ), 'default' => 0 ] );
+		add_settings_field( 'sfm_enable_schema', esc_html__( 'Schema.org Markup', 'sitemap-from-menu' ), [ $this, 'render_checkbox_field' ], 'sitemap-from-menu', 'sfm_features_section', [ 'key' => 'sfm_enable_schema', 'label' => esc_html__( 'Add native SiteNavigationElement structured data to the HTML.', 'sitemap-from-menu' ), 'default' => 0 ] );
+		add_settings_field( 'sfm_enable_collapsible', esc_html__( 'Collapsible Tree', 'sitemap-from-menu' ), [ $this, 'render_checkbox_field' ], 'sitemap-from-menu', 'sfm_features_section', [ 'key' => 'sfm_enable_collapsible', 'label' => esc_html__( 'Collapse nested items visually via lightweight JS toggle.', 'sitemap-from-menu' ), 'default' => 0 ] );
 
-		add_settings_field(
-			'sfm_include_desc',
-			esc_html__( 'Include Descriptions', 'sitemap-from-menu' ),
-			[ $this, 'render_checkbox_field' ],
-			'sitemap-from-menu',
-			'sfm_general_section',
-			[
-				'key'   => 'sfm_include_desc',
-				'label' => esc_html__( 'Show menu item descriptions under links', 'sitemap-from-menu' ),
-				'default' => 0,
-			]
-		);
-
-		add_settings_field(
-			'sfm_append_pages',
-			esc_html__( 'Append Extra Pages', 'sitemap-from-menu' ),
-			[ $this, 'render_text_field' ],
-			'sitemap-from-menu',
-			'sfm_general_section',
-			[
-				'key'         => 'sfm_append_pages',
-				'description' => esc_html__( 'Comma-separated post/page IDs to append at the end of the sitemap.', 'sitemap-from-menu' ),
-			]
-		);
-
-		add_settings_field(
-			'sfm_container_class',
-			esc_html__( 'Wrapper Container Class', 'sitemap-from-menu' ),
-			[ $this, 'render_text_field' ],
-			'sitemap-from-menu',
-			'sfm_general_section',
-			[
-				'key'     => 'sfm_container_class',
-				'default' => 'sfm-sitemap',
-			]
-		);
-
-		add_settings_field(
-			'sfm_enable_shortcode',
-			esc_html__( 'Enable Shortcode', 'sitemap-from-menu' ),
-			[ $this, 'render_checkbox_field' ],
-			'sitemap-from-menu',
-			'sfm_general_section',
-			[
-				'key'     => 'sfm_enable_shortcode',
-				'label'   => esc_html__( 'Enable the [sitemap_from_menu] shortcode', 'sitemap-from-menu' ),
-				'default' => 1,
-			]
-		);
+		// Exclusions
+		add_settings_field( 'sfm_exclude_class', esc_html__( 'Exclude by CSS Class', 'sitemap-from-menu' ), [ $this, 'render_text_field' ], 'sitemap-from-menu', 'sfm_exclusions_section', [ 'key' => 'sfm_exclude_class', 'description' => esc_html__( 'Comma-separated CSS classes. Example: sfm-exclude, hidden', 'sitemap-from-menu' ) ] );
+		add_settings_field( 'sfm_exclude_url', esc_html__( 'Exclude by URL Pattern', 'sitemap-from-menu' ), [ $this, 'render_text_field' ], 'sitemap-from-menu', 'sfm_exclusions_section', [ 'key' => 'sfm_exclude_url', 'description' => esc_html__( 'Comma-separated strings. Example: /private/, /secret-page/', 'sitemap-from-menu' ) ] );
+		add_settings_field( 'sfm_exclude_id', esc_html__( 'Exclude Pages', 'sitemap-from-menu' ), [ $this, 'render_pages_multiselect' ], 'sitemap-from-menu', 'sfm_exclusions_section', [ 'key' => 'sfm_exclude_id', 'description' => esc_html__( 'Hold Ctrl (Windows) or Cmd (Mac) to select multiple pages to exclude.', 'sitemap-from-menu' ) ] );
 	}
 
 	/**
 	 * Sanitizes plugin settings.
-	 *
-	 * @param array $input Raw input options.
-	 * @return array Sanitized options.
 	 */
 	public function sanitize_settings( $input ) {
 		$sanitized = [];
 
-		if ( isset( $input['sfm_menu_id'] ) ) {
-			$sanitized['sfm_menu_id'] = absint( $input['sfm_menu_id'] );
+		if ( isset( $input['sfm_menu_id'] ) ) $sanitized['sfm_menu_id'] = absint( $input['sfm_menu_id'] );
+
+		// Checkboxes
+		$checkboxes = [ 'sfm_include_nested', 'sfm_include_desc', 'sfm_enable_shortcode', 'sfm_enable_a11y', 'sfm_enable_schema', 'sfm_enable_collapsible' ];
+		foreach ( $checkboxes as $cb ) {
+			$sanitized[ $cb ] = ! empty( $input[ $cb ] ) ? 1 : 0;
 		}
 
-		$sanitized['sfm_include_nested'] = ! empty( $input['sfm_include_nested'] ) ? 1 : 0;
-		$sanitized['sfm_include_desc']   = ! empty( $input['sfm_include_desc'] ) ? 1 : 0;
-		
+		// Provide basic IDs formatting for the appended comma string field
 		if ( isset( $input['sfm_append_pages'] ) ) {
-			$ids = explode( ',', sanitize_text_field( $input['sfm_append_pages'] ) );
-			$ids = array_map( 'absint', $ids );
-			$ids = array_filter( $ids );
+			$ids = array_filter( array_map( 'absint', explode( ',', sanitize_text_field( $input['sfm_append_pages'] ) ) ) );
 			$sanitized['sfm_append_pages'] = implode( ',', $ids );
 		}
-		
-		if ( isset( $input['sfm_container_class'] ) ) {
-			$sanitized['sfm_container_class'] = sanitize_text_field( $input['sfm_container_class'] );
+
+		// Handle multi-select page exclusions safely as array dynamically
+		if ( ! empty( $input['sfm_exclude_id'] ) && is_array( $input['sfm_exclude_id'] ) ) {
+			$ids = array_filter( array_map( 'absint', $input['sfm_exclude_id'] ) );
+			$sanitized['sfm_exclude_id'] = implode( ',', $ids );
+		} else {
+			$sanitized['sfm_exclude_id'] = '';
 		}
 
-		$sanitized['sfm_enable_shortcode'] = ! empty( $input['sfm_enable_shortcode'] ) ? 1 : 0;
+		// Text fields
+		foreach ( [ 'sfm_container_class', 'sfm_exclude_class', 'sfm_exclude_url' ] as $txt_field ) {
+			if ( isset( $input[ $txt_field ] ) ) {
+				$sanitized[ $txt_field ] = sanitize_text_field( $input[ $txt_field ] );
+			}
+		}
 
-		// Clear cache upon setting save
+		// Selects
+		if ( isset( $input['sfm_columns'] ) && in_array( $input['sfm_columns'], [ '1', '2', '3', 'auto' ], true ) ) {
+			$sanitized['sfm_columns'] = $input['sfm_columns'];
+		} else {
+			$sanitized['sfm_columns'] = '1';
+		}
+
+		if ( isset( $input['sfm_sorting'] ) && in_array( $input['sfm_sorting'], [ 'default', 'alphabetical' ], true ) ) {
+			$sanitized['sfm_sorting'] = $input['sfm_sorting'];
+		} else {
+			$sanitized['sfm_sorting'] = 'default';
+		}
+
 		$this->clear_sitemap_transient();
-
 		return $sanitized;
 	}
 
-	/**
-	 * Render for the section above the fields.
-	 */
 	public function render_general_section() {
 		echo '<p>' . esc_html__( 'Configure how the sitemap is generated from your selected menu.', 'sitemap-from-menu' ) . '</p>';
 	}
 
-	/**
-	 * Renders dropdown to select navigation menus.
-	 */
 	public function render_menu_dropdown() {
 		$settings = get_option( 'sfm_settings', [] );
 		$current  = isset( $settings['sfm_menu_id'] ) ? absint( $settings['sfm_menu_id'] ) : 0;
@@ -185,11 +142,35 @@ class Admin {
 		<?php
 	}
 
-	/**
-	 * Render checkbox field.
-	 *
-	 * @param array $args Arguments provided in add_settings_field.
-	 */
+	public function render_columns_dropdown() {
+		$settings = get_option( 'sfm_settings', [] );
+		$current  = isset( $settings['sfm_columns'] ) ? $settings['sfm_columns'] : '1';
+		$options  = [
+			'1'    => esc_html__( 'Single Column (Default)', 'sitemap-from-menu' ),
+			'2'    => esc_html__( '2 Columns Grid', 'sitemap-from-menu' ),
+			'3'    => esc_html__( '3 Columns Grid', 'sitemap-from-menu' ),
+			'auto' => esc_html__( 'Auto-Fit Grid', 'sitemap-from-menu' ),
+		];
+		?>
+		<select name="sfm_settings[sfm_columns]">
+			<?php foreach ( $options as $val => $label ) : ?>
+				<option value="<?php echo esc_attr( $val ); ?>" <?php selected( $current, $val ); ?>><?php echo esc_html( $label ); ?></option>
+			<?php endforeach; ?>
+		</select>
+		<?php
+	}
+
+	public function render_sorting_dropdown() {
+		$settings = get_option( 'sfm_settings', [] );
+		$current  = isset( $settings['sfm_sorting'] ) ? $settings['sfm_sorting'] : 'default';
+		?>
+		<select name="sfm_settings[sfm_sorting]">
+			<option value="default" <?php selected( $current, 'default' ); ?>><?php esc_html_e( 'Preserve Menu Order (Default)', 'sitemap-from-menu' ); ?></option>
+			<option value="alphabetical" <?php selected( $current, 'alphabetical' ); ?>><?php esc_html_e( 'Alphabetical (A-Z)', 'sitemap-from-menu' ); ?></option>
+		</select>
+		<?php
+	}
+
 	public function render_checkbox_field( $args ) {
 		$settings = get_option( 'sfm_settings', [] );
 		$key      = sanitize_key( $args['key'] );
@@ -205,11 +186,6 @@ class Admin {
 		<?php
 	}
 
-	/**
-	 * Render text field.
-	 *
-	 * @param array $args Arguments provided in add_settings_field.
-	 */
 	public function render_text_field( $args ) {
 		$settings = get_option( 'sfm_settings', [] );
 		$key      = sanitize_key( $args['key'] );
@@ -223,13 +199,28 @@ class Admin {
 		<?php
 	}
 
-	/**
-	 * Output Settings page HTML.
-	 */
+	public function render_pages_multiselect( $args ) {
+		$settings = get_option( 'sfm_settings', [] );
+		$key      = sanitize_key( $args['key'] );
+		$current  = isset( $settings[ $key ] ) ? explode( ',', $settings[ $key ] ) : [];
+		
+		$pages    = get_pages( [ 'post_status' => [ 'publish', 'draft', 'private' ], 'number' => -1 ] );
+		?>
+		<select name="sfm_settings[<?php echo esc_attr( $key ); ?>][]" multiple="multiple" size="10" style="min-width: 300px; max-height: 200px;">
+			<?php foreach ( $pages as $page ) : ?>
+				<option value="<?php echo esc_attr( $page->ID ); ?>" <?php echo in_array( (string) $page->ID, $current, true ) ? 'selected="selected"' : ''; ?>>
+					<?php echo esc_html( $page->post_title . ' (ID: ' . $page->ID . ')' ); ?>
+				</option>
+			<?php endforeach; ?>
+		</select>
+		<?php if ( isset( $args['description'] ) ) : ?>
+			<p class="description"><?php echo esc_html( $args['description'] ); ?></p>
+		<?php endif; ?>
+		<?php
+	}
+
 	public function render_settings_page() {
-		if ( ! current_user_can( 'manage_options' ) ) {
-			return;
-		}
+		if ( ! current_user_can( 'manage_options' ) ) return;
 		?>
 		<div class="wrap">
 			<h1><?php esc_html_e( 'Sitemap From Menu Settings', 'sitemap-from-menu' ); ?></h1>
@@ -242,12 +233,9 @@ class Admin {
 		<?php
 	}
 
-	/**
-	 * Clear the sitemap transient cache.
-	 * 
-	 * @param int $menu_id The menu ID.
-	 */
 	public function clear_sitemap_transient( $menu_id = 0 ) {
-		delete_transient( 'sfm_sitemap_html' );
+		global $wpdb;
+		$wpdb->query( "DELETE FROM `{$wpdb->options}` WHERE `option_name` LIKE '_transient_sfm_shtml_%'" );
+		$wpdb->query( "DELETE FROM `{$wpdb->options}` WHERE `option_name` LIKE '_transient_timeout_sfm_shtml_%'" );
 	}
 }

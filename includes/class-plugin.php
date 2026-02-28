@@ -45,6 +45,10 @@ class Plugin {
 
 		$shortcode = new Shortcode();
 		$shortcode->init();
+
+		$block = new Block();
+		$block->init();
+
 	}
 
 	/**
