@@ -1,0 +1,24 @@
+/**
+ * Sitemap From Menu Styles
+ */
+.sfm-sitemap {
+    margin: 1.5rem 0;
+}
+
+.sfm-sitemap ul {
+    list-style-type: disc;
+    margin-left: 1.5rem;
+    padding-left: 0;
+}
+
+.sfm-sitemap li {
+    margin-bottom: 0.5rem;
+}
+
+.sfm-sitemap .sfm-desc {
+    display: block;
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 0.2rem;
+    margin-bottom: 0.5rem;
+}

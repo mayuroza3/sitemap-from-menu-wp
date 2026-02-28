@@ -1,53 +1,62 @@
 === Sitemap From Menu ===
-Contributors: mayuroza
-Tags: sitemap, menu, seo, shortcode
-Requires at least: 5.0
-Tested up to: 6.5
-Requires PHP: 7.0
-Stable tag: 1.1
+Contributors: mayuroza3
+Tags: html sitemap, menu sitemap, navigation sitemap, sitemap generator
+Requires at least: 5.6
+Tested up to: 6.7
+Requires PHP: 7.4
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Generate a custom sitemap from a WordPress navigation menu with optional additional page links.
+Generates a front-end HTML sitemap using a selected WordPress navigation menu.
 
 == Description ==
 
-**Sitemap From Menu** allows you to generate a clean sitemap page using your site's existing navigation menu. You can also include additional pages by passing their IDs. Perfect for SEO and site indexing.
+Sitemap From Menu allows you to effortlessly generate a clean, semantic HTML frontend sitemap simply by selecting any WordPress natural navigation menu. With native shortcode support, customizable output, and zero bloat, creating an accessible frontend sitemap has never been easier.
 
 **Features:**
-- Select a menu from the admin panel.
-- Optionally add extra page IDs.
-- Use a shortcode `[csfm]` to show the sitemap.
-- Pass menu name and extra pages directly via shortcode like `[csfm menu="Header Menu" pages="12,34,56"]`.
+*   Generate a clean, hierarchical HTML sitemap based on a WordPress menu
+*   Output via `[sitemap_from_menu]` shortcode
+*   Theme-compatible unstyled semantic HTML (No forced inline CSS)
+*   Include multi-level children/nested items (optional)
+*   Include menu item descriptions (optional)
+*   Append extra posts/pages using post IDs
+*   Built using modern WordPress OOP architecture
+*   Performance optimized with custom transient caching
+*   Fully Translatable and i18n compliant
 
 == Installation ==
 
-1. Upload the plugin folder to `/wp-content/plugins/`.
-2. Activate the plugin via the Plugins menu in WordPress.
-3. Go to **Settings > Custom Sitemap From Menu** to select the menu and optionally add extra pages.
-4. Create a new page and insert the shortcode `[csfm]` or `[csfm menu="Your Menu" pages="1,2,3"]`.
+1. Upload the `sitemap-from-menu` folder to the `/wp-content/plugins/` directory.
+2. Activate the plugin through the 'Plugins' menu in WordPress.
+3. Navigate to **Settings -> Sitemap From Menu** to configure the plugin.
+4. Select the navigation menu you want to use.
+5. Use the shortcode `[sitemap_from_menu]` on any page, post, or widget area to display the sitemap.
 
-== Shortcode Usage ==
+== FAQ ==
 
-- `[csfm]` – Uses admin-configured menu and pages.
-- `[csfm menu="Header Menu"]` – Override with menu name.
-- `[csfm pages="12,34,56"]` – Add specific pages by ID.
-- `[csfm menu="Footer" pages="99,100"]` – Combine both.
+= Do I need a specific theme to use this? =
+No, the plugin outputs clean, semantic unordered lists that perfectly inherit your theme's native styling.
+
+= Is the shortcode block editor compatible? =
+Yes, you can drop the `[sitemap_from_menu]` shortcode directly into a Shortcode Block and it will render seamlessly over Gutenberg.
+
+= Can I append pages not in the menu? =
+Yes! Via the plugin settings page, you can safely pass comma-separated Page/Post IDs to append them to the end of your sitemap.
 
 == Screenshots ==
 
-1. Admin settings screen to select menu and add page IDs.
-2. Sitemap rendered on frontend.
+1. The plugin admin settings panel.
+2. The naturally generated front-end sitemap.
 
 == Changelog ==
 
-= 1.1 =
-* Added shortcode attributes support for `menu` and `pages`.
-* Improved output sanitization and security.
+= 2.0.0 =
+* Complete structural modernization.
+* Implemented clean Object-Oriented architecture.
+* Integrated Settings API for the admin configuration page.
+* Switched to single-array options and transient caching for immense performance increases.
+* Added HTML sanitization, nonce protection inherently via the Settings API, strict codebase security review.
 
-= 1.0 =
+= 1.0.0 =
 * Initial release.
-
-== License ==
-
-This plugin is licensed under the GPLv2 or later.
