@@ -49,6 +49,18 @@ class Plugin {
 		$block = new Block();
 		$block->init();
 
+		// Register Elementor Widget.
+		add_action( 'elementor/widgets/register', [ $this, 'register_elementor_widget' ] );
+	}
+
+	/**
+	 * Register Sitemap Elementor Widget.
+	 *
+	 * @param \Elementor\Widgets_Manager $widgets_manager Elementor widgets manager.
+	 */
+	public function register_elementor_widget( $widgets_manager ) {
+		require_once SFM_PLUGIN_DIR . 'includes/class-elementor-widget.php';
+		$widgets_manager->register( new ElementorWidget() );
 	}
 
 	/**
