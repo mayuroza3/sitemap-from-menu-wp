@@ -2,9 +2,9 @@
 Contributors: mayuroza3
 Tags: html sitemap, menu sitemap, navigation sitemap, sitemap generator, gutenberg block
 Requires at least: 5.6
-Tested up to: 6.7
+Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.1.0
+Stable tag: 2.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -50,25 +50,30 @@ Not at all. This solely renders an HTML interface for humans to interact cleanly
 
 == Screenshots ==
 
-1. The plugin admin settings panel boasting robust layout controls.
-2. The naturally generated front-end HTML sitemap mapping dynamic trees naturally correctly seamlessly perfectly.
+1. screenshot-1.png - The Admin Settings Page featuring menu selector, column layouts, and exclusion rules.
+2. screenshot-2.png - Clean, naturally generated front-end HTML sitemap mapping dynamic multi-column menu lists.
 
 == Changelog ==
 
+= 2.2.0 =
+* Improved compatibility with the latest WordPress 7.0.
+* Versioned transient cache keys for reliable clearing under external object caching (Redis/Memcached).
+* Cleaned up and polished code comments.
+
 = 2.1.0 =
 * Introduced Native Gutenberg Block.
-* Added Accessibility (A11y) wrappers with semantic landmarks precisely structured.
-* Introduced Schema.org SiteNavigationElement explicit output structurally.
-* Added Collapsible Interactive Menu Trees (JS toggle seamlessly integrated dynamically natively).
-* Added CSS Grid configuration options explicitly elegantly securely.
-* Added URL String, Page ID, and CSS Class Exclusion constraints seamlessly correctly securely intuitively efficiently precisely effectively respectively sequentially completely structurally strictly purely intelligently accurately purely completely essentially logically technically functionally intelligently dynamically exclusively comprehensively perfectly efficiently fully securely practically properly definitively completely beautifully correctly cleanly accurately cleanly strictly safely natively elegantly explicitly.
-* Added Alphabetical sorting filters essentially effectively explicitly properly conceptually dynamically organically beautifully fully cleanly natively elegantly definitively structurally functionally securely completely accurately strictly naturally seamlessly comprehensively efficiently seamlessly purely cleanly sequentially intuitively practically completely internally accurately functionally perfectly comprehensively smoothly functionally conceptually organically brilliantly cleverly perfectly accurately cleanly precisely nicely intelligently.
+* Added Accessibility (A11y) wrappers with semantic landmarks.
+* Introduced Schema.org SiteNavigationElement markup.
+* Added Collapsible Interactive Menu Trees with lightweight JS toggle.
+* Added CSS Grid configuration options (Columns, Grids).
+* Added URL String, Page ID, and CSS Class Exclusion constraints.
+* Added Alphabetical sorting filters.
 
 = 2.0.0 =
-* Complete structural modernization internally implicitly cleanly.
-* Implemented clean Object-Oriented architecture sequentially dynamically.
-* Integrated Settings APIs for the configuration dashboard effectively naturally gracefully comprehensively.
-* Switched to single-array options and transient caches precisely perfectly structurally beautifully efficiently respectively exclusively intelligently smoothly intuitively cleanly completely functionally inherently strictly practically technically perfectly dynamically cleanly dynamically logically fully intelligently cleanly accurately securely correctly appropriately smartly smartly safely seamlessly completely appropriately appropriately exclusively beautifully seamlessly safely.
+* Complete structural modernization.
+* Implemented clean Object-Oriented PHP architecture.
+* Integrated WordPress Settings API for the configuration dashboard.
+* Switched to single-array options and transient caching.
 
 = 1.0.0 =
 * Initial release.

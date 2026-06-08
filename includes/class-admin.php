@@ -19,6 +19,16 @@ class Admin {
 		add_action( 'wp_update_nav_menu', [ $this, 'clear_sitemap_transient' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
 		add_action( 'wp_ajax_sfm_render_preview', [ $this, 'ajax_render_preview' ] );
+		add_filter( 'plugin_action_links_' . SFM_PLUGIN_BASENAME, [ $this, 'add_action_links' ] );
+	}
+
+	/**
+	 * Adds settings link to the plugin action links.
+	 */
+	public function add_action_links( $links ) {
+		$settings_link = '<a href="options-general.php?page=sitemap-from-menu">' . esc_html__( 'Settings', 'sitemap-from-menu' ) . '</a>';
+		array_unshift( $links, $settings_link );
+		return $links;
 	}
 
 	/**
@@ -82,7 +92,7 @@ class Admin {
 	}
 
 	/**
-	 * Sanitizes plugin dynamically organically perfectly decoupling formatting from caching explicitly purely safely inherently gracefully natively beautifully securely comprehensively seamlessly securely conceptually flexibly explicitly intelligently properly natively appropriately naturally.
+	 * Sanitizes the settings array input before saving to the database.
 	 */
 	public function sanitize_settings_array( $input ) {
 		$sanitized = [];
@@ -279,7 +289,7 @@ class Admin {
 	}
 
 	/**
-	 * Catch background mapping hooks dynamically securely filtering options purely decoupling UI flows transparently naturally natively securely intuitively structurally comprehensively flawlessly functionally effectively organically natively safely optimally accurately visually perfectly implicitly comprehensively respectively natively natively inherently gracefully strictly implicitly intelligently optimally creatively.
+	 * Renders the preview HTML via AJAX.
 	 */
 	public function ajax_render_preview() {
 		if ( ! current_user_can( 'manage_options' ) ) {
@@ -305,8 +315,7 @@ class Admin {
 	}
 
 	public function clear_sitemap_transient( $menu_id = 0 ) {
-		global $wpdb;
-		$wpdb->query( "DELETE FROM `{$wpdb->options}` WHERE `option_name` LIKE '_transient_sfm_shtml_%'" );
-		$wpdb->query( "DELETE FROM `{$wpdb->options}` WHERE `option_name` LIKE '_transient_timeout_sfm_shtml_%'" );
+		$version = (int) get_option( 'sfm_sitemap_version', 1 );
+		update_option( 'sfm_sitemap_version', $version + 1 );
 	}
 }

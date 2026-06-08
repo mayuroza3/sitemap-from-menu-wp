@@ -9,6 +9,9 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 
 // Delete plugin options
 delete_option( 'sfm_settings' );
+delete_option( 'sfm_sitemap_version' );
 
-// Delete plugin transients
-delete_transient( 'sfm_sitemap_html' );
+// Delete plugin transients from database
+global $wpdb;
+$wpdb->query( "DELETE FROM `{$wpdb->options}` WHERE `option_name` LIKE '_transient_sfm_shtml_%'" );
+$wpdb->query( "DELETE FROM `{$wpdb->options}` WHERE `option_name` LIKE '_transient_timeout_sfm_shtml_%'" );

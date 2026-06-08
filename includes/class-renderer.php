@@ -27,7 +27,8 @@ class Renderer {
 			return '<p>' . esc_html__( 'Sitemap From Menu: No menu selected.', 'sitemap-from-menu' ) . '</p>';
 		}
 
-		$transient_key = 'sfm_shtml_' . md5( serialize( $args ) . serialize( $settings ) );
+		$version       = (int) get_option( 'sfm_sitemap_version', 1 );
+		$transient_key = 'sfm_shtml_' . $version . '_' . md5( serialize( $args ) . serialize( $settings ) );
 		$cached_html   = get_transient( $transient_key );
 		if ( false !== $cached_html ) {
 			return $cached_html;
