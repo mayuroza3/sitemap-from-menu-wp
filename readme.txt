@@ -1,6 +1,6 @@
 === Sitemap From Menu ===
 Contributors: mayuroza3
-Tags: html sitemap, menu sitemap, navigation sitemap, sitemap generator, gutenberg block
+Tags: html sitemap, menu sitemap, sitemap generator, gutenberg block, elementor widget, drag drop sitemap
 Requires at least: 5.6
 Tested up to: 7.0
 Requires PHP: 7.4
@@ -12,9 +12,10 @@ Generates a beautifully optimized front-end HTML sitemap using a selected WordPr
 
 == Description ==
 
-Sitemap From Menu allows you to effortlessly generate a clean, semantic HTML frontend sitemap simply by selecting any WordPress natural navigation menu. With Native Block Editor support, robust A11y enhancements, and Enterprise-ready configurations, creating a fully extensible frontend sitemap has never been easier.
+Sitemap From Menu allows you to effortlessly generate a clean, semantic HTML frontend sitemap simply by selecting any WordPress natural navigation menu. With Native Block Editor support, Elementor compatibility, robust A11y enhancements, and Enterprise-ready configurations, creating a fully extensible frontend sitemap has never been easier.
 
 **Features:**
+*   **Elementor Widget Support:** Drag-and-drop the sitemap widget visually in Elementor with full custom controls directly from the builder.
 *   **Native Gutenberg Block:** Add and configure the sitemap visually straight from your block editor.
 *   Generate a clean, hierarchical HTML sitemap natively tied to your menu tree.
 *   **Theme-Compatible Output:** Works flawlessly with any theme (No forced inline CSS).
